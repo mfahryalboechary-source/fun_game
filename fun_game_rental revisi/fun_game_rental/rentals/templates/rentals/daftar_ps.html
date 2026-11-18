@@ -1,0 +1,310 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+{% load rupiah_filters %}
+
+{% block title %}Katalog - FUN GAME{% endblock %}
+
+{% block content %}
+<section class="daftar-ps-section" style="padding: 120px 0 60px; background-color: #f3f4f6 !important; min-height: 100vh;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
+        
+        <!-- BANNER JUDUL -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h3 style="display: inline-block; background-color: #1A2A4F; color: #ffffff; font-size: 2rem; font-weight: 800; margin: 0; padding: 0.75rem 2.5rem; border-radius: 50px; box-shadow: 0 8px 20px rgba(26,42,79,0.3);">
+                Daftar PS, TV &amp; Paket
+            </h3>
+            <p style="color: #666; font-size: 1.1rem; margin-top: 1rem;">Pilih perangkat atau paket favorit Anda</p>
+        </div>
+
+        <!-- Filter Section (NAVY) -->
+        <div class="filter-section" style="padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; background-color: #1A2A4F !important; border: 1px solid rgba(255,255,255,0.1) !important; box-shadow: 0 8px 24px rgba(26,42,79,0.3) !important;">
+            <div class="filter-title" style="font-weight: 600; color: #ffffff !important;">
+                <i class="fas fa-filter" style="color: #ff6b2c !important;"></i> Filter Kategori:
+            </div>
+            <div class="filter-buttons" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="?tipe=PS3" class="filter-btn {% if tipe_aktif == 'PS3' %}active{% endif %}">
+                    <i class="fas fa-gamepad"></i> PS3
+                </a>
+                <a href="?tipe=PS4" class="filter-btn {% if tipe_aktif == 'PS4' %}active{% endif %}">
+                    <i class="fas fa-gamepad"></i> PS4
+                </a>
+                <a href="?tipe=TV" class="filter-btn {% if tipe_aktif == 'TV' %}active{% endif %}">
+                    <i class="fas fa-tv"></i> TV
+                </a>
+                <a href="?kategori=paket" class="filter-btn {% if kategori_aktif == 'paket' %}active{% endif %}">
+                    <i class="fas fa-tags"></i> Paket
+                </a>
+            </div>
+        </div>
+
+        <!-- TAMPILKAN PAKET -->
+        {% if paket_list %}
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h3 style="display: inline-block; background-color: #ff6b2c; color: #1A2A4F; font-size: 1.5rem; font-weight: 800; margin: 0; padding: 0.55rem 2rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(255,107,44,0.3);">
+                Paket Best Deal
+            </h3>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            {% for paket in paket_list %}
+            <div class="ps-card" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div class="ps-card-image" style="height: 220px; background: #d1d5db; display: flex; align-items: center; justify-content: center; position: relative;">
+                    {% if paket.gambar %}
+                        <img src="{{ paket.gambar.url }}" alt="{{ paket.nama }}" style="width: 100%; height: 100%; object-fit: contain;">
+                    {% else %}
+                        <i class="fas fa-tags" style="font-size: 4rem; color: #ff6b2c;"></i>
+                    {% endif %}
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: #ff6b2c; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600;">PAKET</div>
+                    <div style="position: absolute; bottom: 1rem; left: 1rem; background: #10B981; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; z-index: 10;">Best Deal</div>
+                </div>
+                <div class="ps-card-content" style="text-align: center; padding: 1.5rem; background-color: #1A2A4F;">
+                    <h3 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">{{ paket.nama }}</h3>
+                    {% if paket.deskripsi %}<p style="color: #ccc; font-size: 0.9rem; margin-bottom: 1rem;">{{ paket.deskripsi }}</p>{% endif %}
+                    <div class="ps-price" style="margin-bottom: 1rem;">
+                        <span style="color: #ff6b2c; font-weight: 800; font-size: 1.2rem;">Rp {{ paket.harga|format_rupiah }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- TAMPILKAN PS3 -->
+        {% if tipe_aktif == 'PS3' or not tipe_aktif and not kategori_aktif %}
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h3 style="display: inline-block; background-color: #ff6b2c; color: #1A2A4F; font-size: 1.5rem; font-weight: 800; margin: 0; padding: 0.55rem 2rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(255,107,44,0.3);">
+                PlayStation 3
+            </h3>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            {% for ps in ps_list %}
+                {% if ps.tipe == 'PS3' %}
+                <div class="ps-card" data-tipe="{{ ps.tipe }}" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="ps-card-image" style="height: 220px; background: #d1d5db; display: flex; align-items: center; justify-content: center; position: relative;">
+                        {% if ps.gambar %}
+                            <img src="{{ ps.gambar.url }}" alt="{{ ps.nama }}" style="width: 100%; height: 100%; object-fit: contain;">
+                        {% else %}
+                            <i class="fab fa-playstation" style="font-size: 4rem; color: #ff6b2c;"></i>
+                        {% endif %}
+                        <div style="position: absolute; top: 1rem; right: 1rem; background: #ff6b2c; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600;">{{ ps.tipe }}</div>
+                        {% if ps.status == 'tersedia' %}
+                            <div style="position: absolute; bottom: 1rem; left: 1rem; background: #10B981; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; z-index: 10;">Tersedia</div>
+                        {% else %}
+                            <div style="position: absolute; bottom: 1rem; left: 1rem; background: #EF4444; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; z-index: 10;">Disewa</div>
+                        {% endif %}
+                    </div>
+                    <div class="ps-card-content" style="text-align: center; padding: 1.5rem; background-color: #1A2A4F;">
+                        <h3 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">{{ ps.nama }}</h3>
+                        <div class="ps-price" style="margin-bottom: 1rem;">
+                            {% if ps.jenis_layanan == 'rental' %}
+                                <span style="color: #ff6b2c; font-weight: 800; font-size: 1.2rem;">Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}</span>
+                                <span style="font-size: 0.9rem; color: #ccc;">/ jam</span>
+                            {% else %}
+                                <span style="color: #ff6b2c; font-weight: 800; font-size: 1.2rem;">Rp {{ ps.sewa_per_12jam|default:'0'|format_rupiah }}</span>
+                                <span style="font-size: 0.9rem; color: #ccc;">/ 12 jam</span>
+                            {% endif %}
+                        </div>
+                        {% if ps.status == 'tersedia' %}
+                            <a href="{% url 'rentals:detail_ps' ps.id %}" style="display: block; width: 100%; padding: 0.75rem; background: #ff6b2c; color: white; text-align: center; text-decoration: none; border-radius: 50px; font-weight: 600;">Sewa Sekarang <i class="fas fa-arrow-right"></i></a>
+                        {% else %}
+                            <button style="display: block; width: 100%; padding: 0.75rem; background: #555; color: #ccc; text-align: center; border: none; border-radius: 50px; font-weight: 600; cursor: not-allowed;" disabled><i class="fas fa-times-circle"></i> Tidak Tersedia</button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- TAMPILKAN PS4 -->
+        {% if tipe_aktif == 'PS4' or not tipe_aktif and not kategori_aktif %}
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h3 style="display: inline-block; background-color: #ff6b2c; color: #1A2A4F; font-size: 1.5rem; font-weight: 800; margin: 0; padding: 0.55rem 2rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(255,107,44,0.3);">
+                PlayStation 4
+            </h3>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            {% for ps in ps_list %}
+                {% if ps.tipe == 'PS4' %}
+                <div class="ps-card" data-tipe="{{ ps.tipe }}" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="ps-card-image" style="height: 220px; background: #d1d5db; display: flex; align-items: center; justify-content: center; position: relative;">
+                        {% if ps.gambar %}
+                            <img src="{{ ps.gambar.url }}" alt="{{ ps.nama }}" style="width: 100%; height: 100%; object-fit: contain;">
+                        {% else %}
+                            <i class="fab fa-playstation" style="font-size: 4rem; color: #ff6b2c;"></i>
+                        {% endif %}
+                        <div style="position: absolute; top: 1rem; right: 1rem; background: #ff6b2c; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600;">{{ ps.tipe }}</div>
+                        {% if ps.status == 'tersedia' %}
+                            <div style="position: absolute; bottom: 1rem; left: 1rem; background: #10B981; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; z-index: 10;">Tersedia</div>
+                        {% else %}
+                            <div style="position: absolute; bottom: 1rem; left: 1rem; background: #EF4444; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; z-index: 10;">Disewa</div>
+                        {% endif %}
+                    </div>
+                    <div class="ps-card-content" style="text-align: center; padding: 1.5rem; background-color: #1A2A4F;">
+                        <h3 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">{{ ps.nama }}</h3>
+                        <div class="ps-price" style="margin-bottom: 1rem;">
+                            {% if ps.jenis_layanan == 'rental' %}
+                                <span style="color: #ff6b2c; font-weight: 800; font-size: 1.2rem;">Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}</span>
+                                <span style="font-size: 0.9rem; color: #ccc;">/ jam</span>
+                            {% else %}
+                                <span style="color: #ff6b2c; font-weight: 800; font-size: 1.2rem;">Rp {{ ps.sewa_per_12jam|default:'0'|format_rupiah }}</span>
+                                <span style="font-size: 0.9rem; color: #ccc;">/ 12 jam</span>
+                            {% endif %}
+                        </div>
+                        {% if ps.status == 'tersedia' %}
+                            <a href="{% url 'rentals:detail_ps' ps.id %}" style="display: block; width: 100%; padding: 0.75rem; background: #ff6b2c; color: white; text-align: center; text-decoration: none; border-radius: 50px; font-weight: 600;">Sewa Sekarang <i class="fas fa-arrow-right"></i></a>
+                        {% else %}
+                            <button style="display: block; width: 100%; padding: 0.75rem; background: #555; color: #ccc; text-align: center; border: none; border-radius: 50px; font-weight: 600; cursor: not-allowed;" disabled><i class="fas fa-times-circle"></i> Tidak Tersedia</button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- TAMPILKAN TV -->
+        {% if tipe_aktif == 'TV' or not tipe_aktif and not kategori_aktif %}
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h3 style="display: inline-block; background-color: #ff6b2c; color: #1A2A4F; font-size: 1.5rem; font-weight: 800; margin: 0; padding: 0.55rem 2rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(255,107,44,0.3);">
+                Koleksi TV
+            </h3>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            {% for ps in ps_list %}
+                {% if ps.tipe == 'TV' %}
+                <div class="ps-card" data-tipe="{{ ps.tipe }}" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="ps-card-image" style="height: 220px; background: #d1d5db; display: flex; align-items: center; justify-content: center; position: relative;">
+                        {% if ps.gambar %}
+                            <img src="{{ ps.gambar.url }}" alt="{{ ps.nama }}" style="width: 100%; height: 100%; object-fit: contain;">
+                        {% else %}
+                            <i class="fas fa-tv" style="font-size: 4rem; color: #ff6b2c;"></i>
+                        {% endif %}
+                        <div style="position: absolute; top: 1rem; right: 1rem; background: #ff6b2c; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600;">{{ ps.tipe }}</div>
+                        {% if ps.status == 'tersedia' %}
+                            <div style="position: absolute; bottom: 1rem; left: 1rem; background: #10B981; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; z-index: 10;">Tersedia</div>
+                        {% else %}
+                            <div style="position: absolute; bottom: 1rem; left: 1rem; background: #EF4444; color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; z-index: 10;">Disewa</div>
+                        {% endif %}
+                    </div>
+                    <div class="ps-card-content" style="text-align: center; padding: 1.5rem; background-color: #1A2A4F;">
+                        <h3 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">{{ ps.nama }}</h3>
+                        <div class="ps-price" style="margin-bottom: 1rem;">
+                            {% if ps.jenis_layanan == 'rental' %}
+                                <span style="color: #ff6b2c; font-weight: 800; font-size: 1.2rem;">Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}</span>
+                                <span style="font-size: 0.9rem; color: #ccc;">/ jam</span>
+                            {% else %}
+                                <span style="color: #ff6b2c; font-weight: 800; font-size: 1.2rem;">Rp {{ ps.sewa_per_12jam|default:'0'|format_rupiah }}</span>
+                                <span style="font-size: 0.9rem; color: #ccc;">/ 12 jam</span>
+                            {% endif %}
+                        </div>
+                        {% if ps.status == 'tersedia' %}
+                            <a href="{% url 'rentals:detail_ps' ps.id %}" style="display: block; width: 100%; padding: 0.75rem; background: #ff6b2c; color: white; text-align: center; text-decoration: none; border-radius: 50px; font-weight: 600;">Sewa Sekarang <i class="fas fa-arrow-right"></i></a>
+                        {% else %}
+                            <button style="display: block; width: 100%; padding: 0.75rem; background: #555; color: #ccc; text-align: center; border: none; border-radius: 50px; font-weight: 600; cursor: not-allowed;" disabled><i class="fas fa-times-circle"></i> Tidak Tersedia</button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- KALAU DUA-DUANYA KOSONG -->
+        {% if not ps_list and not paket_list %}
+        <div style="text-align: center; padding: 4rem; background: #fff; border-radius: 20px; grid-column: 1 / -1;">
+            <i class="fas fa-gamepad" style="font-size: 4rem; color: #ff6b2c; margin-bottom: 1rem;"></i>
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Belum ada produk tersedia</h3>
+            <p style="color: #666;">Mohon tunggu update terbaru dari kami</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+/* ======================================================== */
+/* PAKSA TOMBOL FILTER JADI ORANYE */
+/* ======================================================== */
+.filter-btn {
+    padding: 0.5rem 1.25rem !important;
+    background-color: #f3f4f6 !important; 
+    color: #333 !important;
+    text-decoration: none !important;
+    border-radius: 50px !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    border: 2px solid transparent !important;
+}
+
+.filter-btn:hover, 
+.filter-btn.active {
+    background-color: #ff6b2c !important;
+    color: #ffffff !important;
+    border-color: #ff6b2c !important;
+    box-shadow: 0 4px 10px rgba(255, 107, 44, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ======================================================== */
+/* ATUR UKURAN GAMBAR & WARNA ABU-ABU */
+/* ======================================================== */
+.ps-card-image {
+    position: relative !important;
+    width: 100% !important;
+    height: 220px !important; 
+    padding: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #d1d5db !important; 
+    background-image: none !important; 
+    overflow: hidden !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+}
+.ps-card-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important; 
+    transition: transform 0.3s ease !important;
+}
+.ps-card:hover .ps-card-image img {
+    transform: scale(1.05) !important; 
+}
+.ps-icon {
+    font-size: 4rem !important;
+    color: var(--orange) !important;
+    text-align: center !important;
+}
+
+/* Reset dulu semua TV biar normal */
+.ps-card[data-tipe="TV"] .ps-card-image img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* 1. KHUSUS TV LG */
+.ps-card[data-tipe="TV"]:nth-child(1) .ps-card-image img {
+    transform: scale(0.9) !important; 
+}
+
+/* 2. KHUSUS TV SHARP */
+.ps-card[data-tipe="TV"]:nth-child(2) .ps-card-image img {
+    transform: scale(0.6) !important; 
+}
+
+/* 3. KHUSUS TV COCCA */
+.ps-card[data-tipe="TV"]:nth-child(3) .ps-card-image img {
+    transform: scale(1) !important; 
+}
+
+@media (max-width: 768px) {
+    .filter-section { flex-direction: column; align-items: flex-start; }
+    .filter-buttons { width: 100%; justify-content: center; }
+}
+</style>
+{% endblock %}

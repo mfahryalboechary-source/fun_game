@@ -1,0 +1,430 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+{% load rupiah_filters %}
+
+{% block title %}Detail PlayStation - {{ ps.nama }} | FUN GAME{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="container">
+        <div class="detail-grid">
+            <!-- Bagian Gambar PS -->
+            <div class="detail-image">
+                {% if ps.gambar %}
+                    <img src="{{ ps.gambar.url }}" alt="{{ ps.nama }}">
+                {% else %}
+                    <div class="image-placeholder">
+                        <i class="fab fa-playstation"></i>
+                        <p>{{ ps.tipe }}</p>
+                    </div>
+                {% endif %}
+                <div class="status-badge {% if ps.status == 'tersedia' %}status-tersedia{% else %}status-disewa{% endif %}">
+                    {% if ps.status == 'tersedia' %}
+                        <i class="fas fa-check-circle"></i> Tersedia
+                    {% else %}
+                        <i class="fas fa-times-circle"></i> Sedang Disewa
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Bagian Informasi PS -->
+            <div class="detail-info">
+                <div class="ps-type-badge">{{ ps.get_tipe_display }}</div>
+                <h1>{{ ps.nama }}</h1>
+                <div class="ps-layanan-badge">
+                    {% if ps.jenis_layanan == 'rental' and ps.tipe != 'TV' %}
+                        <i class="fas fa-store"></i> Main di Tempat
+                    {% else %}
+                        <i class="fas fa-truck"></i> Bawa Pulang
+                    {% endif %}
+                </div>
+
+                <!-- Daftar Harga -->
+                <div class="price-list">
+                    <h3><i class="fas fa-tag"></i> Pilihan Durasi Sewa</h3>
+                    
+                    <!-- LOGIKA BARU: Cek apakah rental DAN bukan TV -->
+                    {% if ps.jenis_layanan == 'rental' and ps.tipe != 'TV' %}
+                        <!-- RENTAL: Main di Tempat (PS3 / PS4) -->
+                        <div class="price-item">
+                            <div class="price-info">
+                                <span class="duration">1 Jam</span>
+                                <span class="duration-desc">Cocok untuk main sebentar</span>
+                            </div>
+                            <span class="price">Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}</span>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-info">
+                                <span class="duration">3 Jam</span>
+                                <span class="duration-desc">Hemat 10%</span>
+                            </div>
+                            <span class="price">Rp {{ ps.rental_per_3jam|default:'0'|format_rupiah }}</span>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-info">
+                                <span class="duration">6 Jam</span>
+                                <span class="duration-desc">Hemat 20% + Free Snack</span>
+                            </div>
+                            <span class="price">Rp {{ ps.rental_per_6jam|default:'0'|format_rupiah }}</span>
+                        </div>
+                        <div class="price-item popular">
+                            <div class="price-info">
+                                <span class="duration">12 Jam</span>
+                                <span class="duration-desc">Hemat 30% + Free Snack & Minum</span>
+                            </div>
+                            <span class="price">Rp {{ ps.rental_per_12jam|default:'0'|format_rupiah }}</span>
+                            <span class="recommended">Recommended!</span>
+                        </div>
+                    {% else %}
+                        <!-- SEWA: Bawa Pulang (Termasuk TV) -->
+                        <div class="price-item">
+                            <div class="price-info">
+                                <span class="duration">12 Jam</span>
+                                <span class="duration-desc">Bawa pulang, main di rumah</span>
+                            </div>
+                            <span class="price">Rp {{ ps.sewa_per_12jam|default:'0'|format_rupiah }}</span>
+                        </div>
+                        <div class="price-item popular">
+                            <div class="price-info">
+                                <span class="duration">24 Jam (1 Hari)</span>
+                                <span class="duration-desc">Harga spesial harian</span>
+                            </div>
+                            <span class="price">Rp {{ ps.sewa_harian|default:'0'|format_rupiah }}</span>
+                            <span class="recommended">Recommended!</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Spesifikasi -->
+                <div class="specifications">
+                    <h3><i class="fas fa-microchip"></i> Spesifikasi</h3>
+                    <p>{{ ps.spesifikasi|default:"Spesifikasi lengkap akan diupdate segera" }}</p>
+                </div>
+
+                <!-- Form Booking -->
+                {% if ps.status == 'tersedia' %}
+                <div class="booking-form" id="bookingForm">
+                    <h3><i class="fas fa-calendar-check"></i> Booking Sekarang</h3>
+                    <form method="POST" id="rentalForm">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Nama Lengkap</label>
+                            <input type="text" name="nama_penyewa" required placeholder="Masukkan nama lengkap Anda">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Nomor Telepon</label>
+                            <input type="tel" name="no_telepon" required placeholder="08xx-xxxx-xxxx">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Pilih Durasi</label>
+                            <select name="durasi" id="durasiSelect" required>
+                                {% if ps.jenis_layanan == 'rental' and ps.tipe != 'TV' %}
+                                    <option value="1_jam" data-price="Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}">1 Jam - Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}</option>
+                                    <option value="3_jam" data-price="Rp {{ ps.rental_per_3jam|default:'0'|format_rupiah }}">3 Jam - Rp {{ ps.rental_per_3jam|default:'0'|format_rupiah }}</option>
+                                    <option value="6_jam" data-price="Rp {{ ps.rental_per_6jam|default:'0'|format_rupiah }}">6 Jam - Rp {{ ps.rental_per_6jam|default:'0'|format_rupiah }}</option>
+                                    <option value="12_jam" data-price="Rp {{ ps.rental_per_12jam|default:'0'|format_rupiah }}">12 Jam - Rp {{ ps.rental_per_12jam|default:'0'|format_rupiah }}</option>
+                                {% else %}
+                                    <option value="12_jam" data-price="Rp {{ ps.sewa_per_12jam|default:'0'|format_rupiah }}">12 Jam - Rp {{ ps.sewa_per_12jam|default:'0'|format_rupiah }}</option>
+                                    <option value="harian" data-price="Rp {{ ps.sewa_harian|default:'0'|format_rupiah }}">1 Hari - Rp {{ ps.sewa_harian|default:'0'|format_rupiah }}</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="total-price-display">
+                            <span>Total yang harus dibayar:</span>
+                            <span class="total-amount" id="totalAmount">
+                                {% if ps.jenis_layanan == 'rental' and ps.tipe != 'TV' %}
+                                    Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}
+                                {% else %}
+                                    Rp {{ ps.sewa_per_12jam|default:'0'|format_rupiah }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <button type="button" class="booking-btn" onclick="bookingWA()">
+                             <i class="fab fa-whatsapp"></i>
+                                 Booking via WhatsApp
+                        </button>
+                        <p class="payment-note">
+                            <i class="fas fa-info-circle"></i> 
+                            Pembayaran bisa dilakukan di tempat (COD) atau transfer bank
+                        </p>
+                    </form>
+                </div>
+                {% else %}
+                <div class="unavailable-card">
+                    <i class="fas fa-frown"></i>
+                    <h3>Maaf, PlayStation sedang tidak tersedia</h3>
+                    <p>Unit ini sedang disewa oleh penyewa lain. Cek unit lainnya ya!</p>
+                    <a href="{% url 'rentals:daftar_ps' %}" class="btn-other">
+                        <i class="fas fa-arrow-left"></i> Lihat Unit Lain
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.detail-container {
+    padding: 120px 0 60px;
+    background: var(--gray-light);
+    min-height: 100vh;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.detail-image {
+    position: relative;
+    background: var(--gradient-blue);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.image-placeholder {
+    text-align: center;
+}
+
+.image-placeholder i {
+    font-size: 8rem;
+    color: var(--orange);
+}
+
+.status-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.status-tersedia {
+    background: #10B981;
+    color: white;
+}
+
+.status-disewa {
+    background: #EF4444;
+    color: white;
+}
+
+.detail-info {
+    padding: 2rem;
+}
+
+.ps-type-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.ps-layanan-badge {
+    display: inline-block;
+    background: var(--blue-dark);
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.detail-info h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--blue-dark);
+}
+
+.price-list {
+    background: var(--gray-light);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 1.5rem 0;
+}
+
+.price-list h3 {
+    margin-bottom: 1rem;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.price-item.popular {
+    background: rgba(255, 107, 44, 0.1);
+    margin: 0 -1.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    position: relative;
+}
+
+.price-info .duration {
+    font-weight: 600;
+    display: block;
+}
+
+.price-info .duration-desc {
+    font-size: 0.7rem;
+    color: var(--gray);
+}
+
+.price-item .price {
+    font-weight: 700;
+    color: var(--orange);
+    font-size: 1.1rem;
+}
+
+.recommended {
+    position: absolute;
+    right: 80px;
+    background: var(--orange);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.6rem;
+    font-weight: 600;
+}
+
+.specifications {
+    margin: 1.5rem 0;
+}
+
+.booking-form {
+    background: var(--gradient-blue);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 1rem;
+}
+
+.booking-form h3 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 10px;
+}
+
+.total-price-display {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.total-amount {
+    font-weight: 700;
+    color: var(--orange);
+}
+
+.btn-book {
+    width: 100%;
+    padding: 1rem;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-book:hover {
+    background: var(--orange-dark);
+}
+
+.unavailable-card {
+    text-align: center;
+    padding: 2rem;
+    background: #FEE2E2;
+    border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const durasiSelect = document.getElementById('durasiSelect');
+        const totalAmount = document.getElementById('totalAmount');
+
+        if (durasiSelect && totalAmount) {
+            function updateTotal() {
+                const selectedOption = durasiSelect.options[durasiSelect.selectedIndex];
+                const priceText = selectedOption.getAttribute('data-price');
+                if (priceText) {
+                    totalAmount.textContent = priceText;
+                }
+            }
+            updateTotal();
+            durasiSelect.addEventListener('change', updateTotal);
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cek apakah ada pesan dari Django
+        {% if messages %}
+            {% for message in messages %}
+                // Panggil SweetAlert2
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: "{{ message }}",
+                    confirmButtonColor: '#ff6b2c',
+                    confirmButtonText: 'Oke, Siap!',
+                    background: '#1A2A4F',
+                    color: '#fff'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Opsional: redirect atau refresh halaman
+                        window.location.href = "{% url 'rentals:daftar_ps' %}";
+                    }
+                });
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+
+{% endblock %}

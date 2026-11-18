@@ -1,0 +1,1382 @@
+/* ========================================
+   FUN GAME - RENTAL PLAYSTATION
+   Warna: FUN = Orange (#FF6B2C)
+          GAME = Biru Tua (#1A2A4F)
+   ======================================== */
+
+:root {
+    /* Warna Utama */
+    --orange: #FF6B2C;
+    --orange-dark: #E55A1B;
+    --orange-light: #FF8C4A;
+    --blue-dark: #1A2A4F;
+    --blue-darker: #0F1A32;
+    --blue-light: #243B6B;
+    
+    /* Warna Netral */
+    --white: #FFFFFF;
+    --gray-light: #F5F7FA;
+    --gray: #6B7280;
+    --dark: #1F2937;
+    --black: #111827;
+    
+    /* Gradient */
+    --gradient-orange: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+    --gradient-blue: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-darker) 100%);
+    --gradient-hero: linear-gradient(135deg, #1A2A4F 0%, #0F1A32 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar {
+    background: rgba(15, 26, 50, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.logo-fun {
+    color: var(--orange);
+}
+
+.logo-game {
+    color: var(--white);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-menu a:hover {
+    color: var(--orange);
+}
+
+.nav-menu a i {
+    font-size: 1.1rem;
+}
+
+.menu-toggle {
+    display: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+.hero {
+    background: var(--gradient-hero);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+}
+
+.hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-fun {
+    color: var(--orange);
+    display: inline-block;
+    animation: slideInLeft 0.8s ease;
+}
+
+.hero-game {
+    color: var(--white);
+    display: inline-block;
+    animation: slideInRight 0.8s ease;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-light);
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    animation: fadeInUp 1.2s ease;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--gradient-orange);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(255, 107, 44, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 44, 0.4);
+}
+
+.btn-outline {
+    border: 2px solid var(--orange);
+    color: var(--white);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: var(--orange);
+    transform: translateY(-2px);
+}
+
+.hero-image {
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.ps-controller {
+    font-size: 15rem;
+    color: var(--orange);
+    text-align: center;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+/* ========================================
+   KATALOG PS3 SECTION (Animasi Up-Down)
+   ======================================== */
+.katalog-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--blue-dark);
+}
+
+.highlight {
+    color: var(--orange);
+    position: relative;
+}
+
+.section-header p {
+    color: var(--gray);
+    font-size: 1.1rem;
+}
+
+.katalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.katalog-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.katalog-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 107, 44, 0.2);
+}
+
+.katalog-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1A2A4F, #0F1A32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.katalog-image img {
+    width: 70%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+    animation: floatUpDown 2s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.katalog-card:hover .katalog-image img {
+    transform: scale(1.05);
+}
+
+.katalog-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 107, 44, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.katalog-card:hover .katalog-overlay {
+    opacity: 1;
+}
+
+.katalog-overlay span {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    background: var(--blue-dark);
+    border-radius: 50px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.katalog-card:hover .katalog-overlay span {
+    transform: scale(1);
+}
+
+.katalog-content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.katalog-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--blue-dark);
+}
+
+.katalog-content p {
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+.katalog-price {
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* ========================================
+   PLAYSTATION SECTION
+   ======================================== */
+.playstation-section {
+    padding: 5rem 0;
+}
+
+.ps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.ps-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 107, 44, 0.1);
+}
+
+.ps-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 107, 44, 0.2);
+    border-color: var(--orange);
+}
+
+.ps-card-image {
+    position: relative;
+    height: 220px;
+    background: var(--gradient-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ps-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ps-icon {
+    font-size: 6rem;
+    color: var(--orange);
+}
+
+.ps-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.status-tersedia-badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: #10B981;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.status-disewa-badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: #EF4444;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.ps-card-content {
+    padding: 1.5rem;
+}
+
+.ps-card-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--blue-dark);
+}
+
+.ps-price .price {
+    color: var(--orange);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.per-jam {
+    font-size: 0.875rem;
+    color: var(--gray);
+    font-weight: normal;
+}
+
+.ps-specs {
+    margin: 1rem 0;
+    color: var(--gray);
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gradient-orange);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-card:hover {
+    gap: 1rem;
+    transform: translateY(-2px);
+}
+
+.btn-card.disabled {
+    background: var(--gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ========================================
+   GAMES SECTION
+   ======================================== */
+.games-section {
+    padding: 5rem 0;
+    background: var(--gray-light);
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+}
+
+.game-card {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.game-card-image {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-card-image i {
+    font-size: 3.5rem;
+    color: var(--orange);
+}
+
+.game-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-card-content h4 {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.game-card-content p {
+    font-size: 0.7rem;
+    color: var(--gray);
+}
+
+/* ========================================
+   PRICING SECTION
+   ======================================== */
+.pricing-section {
+    padding: 5rem 0;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.pricing-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--orange);
+    box-shadow: 0 20px 40px rgba(255, 107, 44, 0.15);
+}
+
+.pricing-card.popular {
+    border-color: var(--orange);
+    box-shadow: 0 10px 30px rgba(255, 107, 44, 0.2);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.pricing-icon {
+    font-size: 3rem;
+    color: var(--orange);
+    margin-bottom: 1rem;
+}
+
+.pricing-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--blue-dark);
+}
+
+.pricing-card .price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--orange);
+    margin-bottom: 1rem;
+}
+
+.pricing-card ul {
+    list-style: none;
+    margin: 1rem 0;
+}
+
+.pricing-card li {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--gray);
+}
+
+.pricing-card li i {
+    color: var(--orange);
+}
+
+.btn-pricing {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--blue-dark);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-pricing:hover {
+    background: var(--orange);
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   CTA SECTION
+   ======================================== */
+.cta-section {
+    background: var(--gradient-blue);
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.cta-content h2 {
+    color: var(--white);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    color: var(--gray-light);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.btn-cta {
+    background: var(--orange);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+    gap: 1rem;
+    background: var(--orange-dark);
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+    background: var(--blue-darker);
+    color: var(--white);
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3, .footer-section h4 {
+    margin-bottom: 1rem;
+}
+
+.footer-section p {
+    color: var(--gray-light);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-light);
+    font-size: 0.9rem;
+}
+
+.footer-section ul li i {
+    color: var(--orange);
+    width: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: var(--white);
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--orange);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--gray-light);
+    font-size: 0.8rem;
+}
+
+/* ========================================
+   FILTER SECTION (Daftar PS)
+   ======================================== */
+.filter-section {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-title {
+    font-weight: 600;
+    color: var(--blue-dark);
+}
+
+.filter-title i {
+    color: var(--orange);
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.25rem;
+    background: var(--gray-light);
+    color: var(--dark);
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background: var(--orange);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--orange);
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 107, 44, 0.3);
+}
+
+/* ========================================
+   ALERT MESSAGES
+   ======================================== */
+.messages {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    animation: slideInRight 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.alert-success {
+    background: #10B981;
+    color: white;
+}
+
+.alert-error, .alert-danger {
+    background: #EF4444;
+    color: white;
+}
+
+.alert-warning {
+    background: #F59E0B;
+    color: white;
+}
+
+.alert-info {
+    background: var(--orange);
+    color: white;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .ps-controller {
+        font-size: 10rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--blue-darker);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .ps-controller {
+        font-size: 6rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.75rem;
+    }
+    
+    .ps-grid, .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .katalog-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .katalog-image {
+        height: 200px;
+    }
+    
+    .katalog-image img {
+        width: 50%;
+    }
+    
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-section ul li {
+        justify-content: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .filter-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    @keyframes floatUpDown {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* ========================================
+   SCROLLBAR CUSTOM
+   ======================================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gray-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--orange);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--orange-dark);
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    background: var(--white);
+    border-radius: 20px;
+    grid-column: 1 / -1;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--orange);
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--gray);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+/* ========================================
+   ANIMASI UNTUK PRICING CARD (PAKET)
+   ======================================== */
+
+/* Animasi float up-down untuk pricing card */
+.animate-card {
+    animation: floatUpDownPaket 2s ease-in-out infinite;
+}
+
+.pricing-grid .pricing-card:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.pricing-grid .pricing-card:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.pricing-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 107, 44, 0.2);
+}
+
+.pricing-card:hover .animate-card {
+    animation-play-state: paused;
+}
+
+.pricing-card h4 {
+    color: var(--orange);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Tombol Lihat Harga */
+.price-hidden {
+    background: var(--orange);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 1rem auto;
+    display: inline-block;
+    width: auto;
+    animation: pulse 1.5s infinite;
+}
+
+/* Animasi kedip untuk tombol Lihat Harga */
+@keyframes pulse {
+    0% { 
+        opacity: 0.6; 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(255, 107, 44, 0.4); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.05); 
+        box-shadow: 0 0 0 10px rgba(255, 107, 44, 0); 
+    }
+    100% { 
+        opacity: 0.6; 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(255, 107, 44, 0); 
+    }
+}
+
+/* Animasi naik turun */
+@keyframes floatUpDownPaket {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Styling note */
+.pricing-note {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--gray-light);
+    border-radius: 10px;
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+.pricing-note i {
+    color: var(--orange);
+    margin-right: 0.5rem;
+}
+
+/* Sembunyikan harga lama */
+.pricing-card .price {
+    display: none;
+}
+
+/* Animasi ikon panah */
+.btn-pricing i {
+    transition: transform 0.3s ease;
+}
+
+.btn-pricing:hover i {
+    transform: translateX(5px);
+}
+
+/* Efek hover pada icon paket */
+.pricing-card .pricing-icon i {
+    transition: all 0.3s ease;
+}
+
+.pricing-card:hover .pricing-icon i {
+    transform: scale(1.1);
+    color: var(--orange);
+}
+
+/* ========================================
+   STYLE KOTAK UNTUK PRICING CARD
+   ======================================== */
+
+/* Background kotak putih */
+.pricing-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--orange);
+    box-shadow: 0 20px 40px rgba(255, 107, 44, 0.2);
+}
+
+/* Badge populer */
+.pricing-card.popular {
+    border-color: var(--orange);
+    box-shadow: 0 10px 30px rgba(255, 107, 44, 0.2);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--orange);
+    color: var(--white);
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Icon styling */
+.pricing-icon {
+    font-size: 3rem;
+    color: var(--orange);
+    margin-bottom: 1rem;
+}
+
+.pricing-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--blue-dark);
+}
+
+.pricing-card h4 {
+    color: var(--orange);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* List fitur */
+.pricing-card ul {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.pricing-card li {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--gray);
+}
+
+.pricing-card li i {
+    color: var(--orange);
+}
+
+/* Tombol Lihat Harga */
+.price-hidden {
+    background: var(--orange);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 1rem auto;
+    display: inline-block;
+    width: auto;
+    animation: pulse 1.5s infinite;
+}
+
+/* Tombol Pilih Paket */
+.btn-pricing {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--blue-dark);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.btn-pricing:hover {
+    background: var(--orange);
+    transform: translateY(-2px);
+}
+
+.btn-pricing i {
+    transition: transform 0.3s ease;
+}
+
+.btn-pricing:hover i {
+    transform: translateX(5px);
+}
+
+/* Note */
+.pricing-note {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--gray-light);
+    border-radius: 10px;
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+.pricing-note i {
+    color: var(--orange);
+    margin-right: 0.5rem;
+}
+
+/* Animasi naik turun */
+@keyframes floatUpDownPaket {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Animasi pulse untuk Lihat Harga */
+@keyframes pulse {
+    0% { 
+        opacity: 0.6; 
+        transform: scale(1); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.05); 
+    }
+    100% { 
+        opacity: 0.6; 
+        transform: scale(1); 
+    }
+}
+
+.animate-card {
+    animation: floatUpDownPaket 2s ease-in-out infinite;
+}
+
+.pricing-grid .pricing-card:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.pricing-grid .pricing-card:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.pricing-card:hover .animate-card {
+    animation-play-state: paused;
+}

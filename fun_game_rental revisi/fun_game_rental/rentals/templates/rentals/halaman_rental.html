@@ -1,0 +1,215 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+{% load rupiah_filters %}
+
+{% block title %}Rental PlayStation - FUN GAME{% endblock %}
+
+{% block content %}
+<section class="daftar-ps-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Rental <span class="highlight">PlayStation</span></h2>
+            <p>Main di tempat, seru bareng teman!</p>
+        </div>
+
+        <div class="ps-grid">
+            {% for ps in ps_list %}
+            <div class="ps-card">
+                <div class="ps-card-image">
+                    {% if ps.gambar %}
+                        <img src="{{ ps.gambar.url }}" alt="{{ ps.nama }}">
+                    {% else %}
+                        <div class="ps-icon">
+                            <i class="fab fa-playstation"></i>
+                        </div>
+                    {% endif %}
+                    <div class="ps-badge">{{ ps.tipe }}</div>
+                    {% if ps.status == 'tersedia' %}
+                        <div class="status-tersedia-badge">Tersedia</div>
+                    {% else %}
+                        <div class="status-disewa-badge">Disewa</div>
+                    {% endif %}
+                </div>
+                <div class="ps-card-content">
+                    <h3>{{ ps.nama }}</h3>
+                    <div class="ps-price">
+                        <span class="price">Rp {{ ps.rental_per_jam|default:'0'|format_rupiah }}</span>
+                        <span class="per-jam">/ jam</span>
+                    </div>
+                    {% if ps.status == 'tersedia' %}
+                        <a href="{% url 'rentals:detail_ps' ps.id %}" class="btn-card">
+                            Booking Sekarang <i class="fas fa-arrow-right"></i>
+                        </a>
+                    {% else %}
+                        <button class="btn-card disabled" disabled>
+                            <i class="fas fa-times-circle"></i> Tidak Tersedia
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-gamepad"></i>
+                <h3>Belum ada unit Rental tersedia</h3>
+                <p>Mohon tunggu update terbaru dari kami</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+/* Background Halaman Abu Gagah */
+.daftar-ps-section {
+    padding: 120px 0 60px;
+    background-color: #f3f4f6 !important; 
+    min-height: 100vh;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* KUNCI 3 KOLOM PER BARIS */
+.ps-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 2rem !important;
+}
+
+/* Responsive untuk HP: 1 kolom */
+@media (max-width: 768px) {
+    .ps-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.ps-card {
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.ps-card:hover {
+    transform: translateY(-8px);
+}
+
+.ps-card-image {
+    position: relative;
+    height: 220px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e5e7eb !important;
+    background-image: none !important;
+    overflow: hidden;
+}
+
+.ps-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.ps-card:hover .ps-card-image img {
+    transform: scale(1.05);
+}
+
+.ps-icon {
+    font-size: 4rem;
+    color: var(--orange);
+}
+
+.ps-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--orange);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.status-tersedia-badge, .status-disewa-badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 10;
+}
+.status-tersedia-badge { background: #10B981; }
+.status-disewa-badge { background: #EF4444; }
+
+.ps-card-content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.ps-card-content h3 {
+    color: var(--blue-dark);
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.ps-price {
+    margin-bottom: 1rem;
+}
+
+.ps-price .price {
+    color: var(--orange);
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.per-jam {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.btn-card {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--orange);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-card:hover {
+    background: var(--orange-dark);
+}
+
+.btn-card.disabled {
+    background: var(--gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem;
+    background: var(--white);
+    border-radius: 20px;
+    grid-column: 1 / -1;
+}
+.empty-state i { font-size: 4rem; color: var(--orange); margin-bottom: 1rem; }
+.empty-state h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.empty-state p { color: var(--gray); }
+</style>
+{% endblock %}

@@ -1,0 +1,24 @@
+PANDUAN SINGKAT FUN GAME
+
+Filter halaman Daftar PS sekarang berisi PS3, PS4, TV, dan Paket.
+Tombol Semua, PS2, dan PS5 sudah dihapus dari tampilan filter.
+
+Mengelola Best Deal:
+1. Jalankan server Django.
+2. Buka http://127.0.0.1:8000/admin/
+3. Login menggunakan akun administrator (superuser).
+4. Buka bagian "Paket Best Deal".
+5. Tambah atau pilih paket untuk mengubah nama, deskripsi, foto, harga, dan status aktif.
+6. Simpan. Paket aktif akan tampil pada filter "Paket".
+
+Jika baru pertama kali menjalankan versi ini, jalankan:
+    py manage.py migrate
+
+Jika belum memiliki akun admin:
+    py manage.py createsuperuser
+
+Catatan:
+- Model PS3, PS4, dan TV dikelola melalui menu PlayStations di admin.
+- Untuk produk TV, pilih tipe "TV".
+- Foto paket diunggah melalui form Paket Best Deal.
+- Folder media/ harus tetap berada di dalam folder proyek.

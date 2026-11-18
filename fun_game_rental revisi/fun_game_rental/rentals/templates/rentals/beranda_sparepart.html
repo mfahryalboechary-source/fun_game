@@ -1,0 +1,151 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+{% load rupiah_filters %}
+
+{% block title %}Sparepart - FUN GAME Rental PlayStation{% endblock %}
+
+{% block content %}
+<!-- BANNER ATAS (Teks di Tengah) -->
+<section class="hero" style="min-height: 40vh; padding: 120px 0 40px; background: linear-gradient(145deg, #1A2A4F, #0F1A32); width: 100%; display: block;">
+    <div style="width: 100%; padding: 0 15px; box-sizing: border-box;">
+        
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; max-width: 100%; margin: 0 auto;">
+            
+            <h1 style="font-size: 3rem; margin: 0 0 1rem 0; color: #fff; font-weight: 800; line-height: 1.2; text-align: center; width: 100%;">
+                Koleksi <span style="color: #ff6b2c;">Sparepart</span>
+            </h1>
+            
+            <p style="color: #ccc; font-size: 1.1rem; margin: 0 auto; max-width: 700px; line-height: 1.5; text-align: center; width: 100%;">
+                Lengkapi pengalaman gaming kamu dengan sparepart original dan berkualitas.
+            </p>
+            
+        </div>
+
+    </div>
+</section>
+
+<!-- KATALOG PRODUK -->
+<section style="padding: 3rem 0 5rem; background: transparent;">
+    <div class="container">
+        
+        <!-- Grid Produk -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- CARD PRODUK 1 -->
+            <div style="background: #1A2A4F; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="height: 200px; background: #0F1A32; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-gamepad" style="font-size: 5rem; color: #ff6b2c;"></i>
+                </div>
+                <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; display: inline-block; margin-bottom: 12px; font-weight: bold;">Ready Stock</span>
+                        <h3 style="color: #fff; font-size: 1.25rem; margin: 0 0 8px 0; font-weight: 700;">Stik PS4 Original</h3>
+                        <p style="color: #aaa; font-size: 0.9rem; margin: 0 0 1.5rem 0; line-height: 1.4;">Dualshock 4 - Kondisi mulus 95%</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <span style="font-weight: 800; font-size: 1.1rem; color: #ff6b2c;">Rp {{ 350000|format_rupiah }}</span>
+                        <a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20beli%20Stik%20PS4%20Original%20seharga%20Rp%20{{ 350000|format_rupiah }}" target="_blank" style="background: #ff6b2c; color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Beli</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD PRODUK 2 -->
+            <div style="background: #1A2A4F; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="height: 200px; background: #0F1A32; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-plug" style="font-size: 5rem; color: #ff6b2c;"></i>
+                </div>
+                <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; display: inline-block; margin-bottom: 12px; font-weight: bold;">Ready Stock</span>
+                        <h3 style="color: #fff; font-size: 1.25rem; margin: 0 0 8px 0; font-weight: 700;">Kabel HDMI 2.0</h3>
+                        <p style="color: #aaa; font-size: 0.9rem; margin: 0 0 1.5rem 0; line-height: 1.4;">Panjang 2 meter, support 4K</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <span style="font-weight: 800; font-size: 1.1rem; color: #ff6b2c;">Rp {{ 45000|format_rupiah }}</span>
+                        <a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20beli%20Kabel%20HDMI%202.0%20seharga%20Rp%20{{ 45000|format_rupiah }}" target="_blank" style="background: #ff6b2c; color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Beli</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD PRODUK 3 -->
+            <div style="background: #1A2A4F; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="height: 200px; background: #0F1A32; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-hdd" style="font-size: 5rem; color: #ff6b2c;"></i>
+                </div>
+                <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; display: inline-block; margin-bottom: 12px; font-weight: bold;">Ready Stock</span>
+                        <h3 style="color: #fff; font-size: 1.25rem; margin: 0 0 8px 0; font-weight: 700;">Hardisk PS3 500GB</h3>
+                        <p style="color: #aaa; font-size: 0.9rem; margin: 0 0 1.5rem 0; line-height: 1.4;">Internal HDD khusus PlayStation 3</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <span style="font-weight: 800; font-size: 1.1rem; color: #ff6b2c;">Rp {{ 250000|format_rupiah }}</span>
+                        <a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20beli%20Hardisk%20PS3%20500GB%20seharga%20Rp%20{{ 250000|format_rupiah }}" target="_blank" style="background: #ff6b2c; color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Beli</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD PRODUK 4 -->
+            <div style="background: #1A2A4F; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="height: 200px; background: #0F1A32; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-tools" style="font-size: 5rem; color: #ff6b2c;"></i>
+                </div>
+                <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #ffc107; color: #000; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; display: inline-block; margin-bottom: 12px; font-weight: bold;">Jasa</span>
+                        <h3 style="color: #fff; font-size: 1.25rem; margin: 0 0 8px 0; font-weight: 700;">Jasa Servis PS</h3>
+                        <p style="color: #aaa; font-size: 0.9rem; margin: 0 0 1.5rem 0; line-height: 1.4;">Bersihkan mesin & ganti thermal paste</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <span style="font-weight: 800; font-size: 1.1rem; color: #ff6b2c;">Rp {{ 100000|format_rupiah }}</span>
+                        <a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20pesan%20Jasa%20Servis%20PS%20seharga%20Rp%20{{ 100000|format_rupiah }}" target="_blank" style="background: #ff6b2c; color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Pesan</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD PRODUK 5 -->
+            <div style="background: #1A2A4F; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="height: 200px; background: #0F1A32; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-tv" style="font-size: 5rem; color: #ff6b2c;"></i>
+                </div>
+                <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; display: inline-block; margin-bottom: 12px; font-weight: bold;">Ready Stock</span>
+                        <h3 style="color: #fff; font-size: 1.25rem; margin: 0 0 8px 0; font-weight: 700;">Kabel Power TV</h3>
+                        <p style="color: #aaa; font-size: 0.9rem; margin: 0 0 1.5rem 0; line-height: 1.4;">Kabel colokan listrik standar TV LG</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <span style="font-weight: 800; font-size: 1.1rem; color: #ff6b2c;">Rp {{ 30000|format_rupiah }}</span>
+                        <a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20beli%20Kabel%20Power%20TV%20seharga%20Rp%20{{ 30000|format_rupiah }}" target="_blank" style="background: #ff6b2c; color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Beli</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD PRODUK 6 -->
+            <div style="background: #1A2A4F; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="height: 200px; background: #0F1A32; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-headphones" style="font-size: 5rem; color: #ff6b2c;"></i>
+                </div>
+                <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; display: inline-block; margin-bottom: 12px; font-weight: bold;">Ready Stock</span>
+                        <h3 style="color: #fff; font-size: 1.25rem; margin: 0 0 8px 0; font-weight: 700;">Headset Gaming</h3>
+                        <p style="color: #aaa; font-size: 0.9rem; margin: 0 0 1.5rem 0; line-height: 1.4;">Headset dengan mic untuk PS4 & PC</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <span style="font-weight: 800; font-size: 1.1rem; color: #ff6b2c;">Rp {{ 150000|format_rupiah }}</span>
+                        <a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20beli%20Headset%20Gaming%20seharga%20Rp%20{{ 150000|format_rupiah }}" target="_blank" style="background: #ff6b2c; color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Beli</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="{% url 'rentals:index' %}" style="background: transparent; color: #ff6b2c; border: 2px solid #ff6b2c; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;">&larr; Kembali ke Beranda</a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

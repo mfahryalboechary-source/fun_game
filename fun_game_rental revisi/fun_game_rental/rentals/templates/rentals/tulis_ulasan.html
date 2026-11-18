@@ -1,0 +1,84 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+
+{% block title %}Tulis Ulasan - FUN GAME{% endblock %}
+
+{% block content %}
+<section style="padding: 120px 0 60px; background-color: #f3f4f6; min-height: 100vh;">
+    <div style="max-width: 700px; margin: 0 auto; padding: 0 15px;">
+        
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="font-size: 2rem; font-weight: 800; color: #1A2A4F;">Form Pelanggan <span style="color: #ff6b2c;">FUN GAME</span></h2>
+            <p style="color: #666;">Bantu kami menjadi lebih baik dengan mengisi form ini.</p>
+        </div>
+
+        <div style="background: #fff; border-radius: 18px; padding: 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.05);">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- 1. Nama -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Nama Pelanggan <span style="color:red">*</span></label>
+                    <input type="text" name="nama" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;" placeholder="Jawaban singkat">
+                </div>
+
+                <!-- 2. Unit -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Unit apa yang digunakan <span style="color:red">*</span></label>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label><input type="radio" name="unit" value="PS3" required> PS3</label>
+                        <label><input type="radio" name="unit" value="PS4"> PS4</label>
+                        <label><input type="radio" name="unit" value="TV"> TV</label>
+                    </div>
+                </div>
+
+                <!-- 3. Pelayanan -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Pelayanan FUN GAME <span style="color:red">*</span></label>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label><input type="radio" name="pelayanan" value="Sangat Baik" required> Sangat Baik</label>
+                        <label><input type="radio" name="pelayanan" value="Baik"> Baik</label>
+                        <label><input type="radio" name="pelayanan" value="Cukup"> Cukup</label>
+                        <label><input type="radio" name="pelayanan" value="Kurang"> Kurang</label>
+                    </div>
+                </div>
+
+                <!-- 4. Akses -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Apakah FUN GAME mempermudah akses layanan rental dan sewa <span style="color:red">*</span></label>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label><input type="radio" name="akses" value="Sangat Baik" required> Sangat Baik</label>
+                        <label><input type="radio" name="akses" value="Baik"> Baik</label>
+                        <label><input type="radio" name="akses" value="Cukup"> Cukup</label>
+                        <label><input type="radio" name="akses" value="Mudah"> Mudah</label>
+                    </div>
+                </div>
+
+                <!-- 5. Harapan -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Apakah sudah sesuai harapan anda? <span style="color:red">*</span></label>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label><input type="radio" name="harapan" value="Iya" required> Iya</label>
+                        <label><input type="radio" name="harapan" value="Tidak"> Tidak</label>
+                    </div>
+                </div>
+
+                <!-- 6. Saran -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Tuliskan saran dan pesan <span style="color:red">*</span></label>
+                    <textarea name="saran" required rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;" placeholder="Teks jawaban panjang"></textarea>
+                </div>
+
+                <button type="submit" style="width: 100%; padding: 1rem; background: #ff6b2c; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='#e65a1f'" onmouseout="this.style.background='#ff6b2c'">
+                    Kirim
+                </button>
+            </form>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{% url 'rentals:index' %}" style="color: #666; text-decoration: none; font-weight: 600;">&larr; Kembali ke Beranda</a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

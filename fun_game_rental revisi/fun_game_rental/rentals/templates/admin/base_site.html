@@ -1,0 +1,60 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | FUN GAME Admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <span style="color: #ff6b2c; font-weight: 900;">FUN</span> 
+        <span style="color: #ffffff; font-weight: 900;">GAME</span> 
+        <span style="color: #ff6b2c;">Admin</span>
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+    /* Background Body */
+    body { background-color: #f3f4f6 !important; font-family: 'Inter', sans-serif; }
+    
+    /* Header Atas */
+    #header {
+        background-color: #1A2A4F !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    #header a:link, #header a:visited { color: #ffffff !important; }
+    
+    /* Tombol Simpan/Submit */
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background: #ff6b2c !important;
+        color: white !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        padding: 10px 15px !important;
+        transition: all 0.3s ease !important;
+        border: none !important;
+    }
+    .button:hover, input[type=submit]:hover, a.button:hover {
+        background: #e65a1f !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255,107,44,0.4);
+    }
+
+    /* Sidebar & Judul Modul */
+    .module h2, .module caption, .inline-group h2 {
+        background: #1A2A4F !important;
+        color: white !important;
+        border-radius: 8px;
+    }
+    .module a:link, .module a:visited {
+        color: #1A2A4F !important;
+        font-weight: 600;
+    }
+    .module a:hover { color: #ff6b2c !important; }
+
+    /* Link "Lihat Situs" */
+    #user-tools a { color: #ff6b2c !important; font-weight: bold; }
+</style>
+{% endblock %}

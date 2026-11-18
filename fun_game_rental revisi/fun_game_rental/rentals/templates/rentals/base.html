@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FUN GAME - Rental PlayStation{% endblock %}</title>
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- LIBRARY QR CODE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- KODE UNTUK MENGHILANGKAN TOMBOL PANAH KE ATAS & LOADING SPINNER -->
+    <style>
+        #back-to-top, .back-to-top, .scroll-top, button[title="Back to Top"], a[href="#"] i.fa-arrow-up { display: none !important; }
+        
+        /* ========================================== */
+        /* LOADING SPINNER KEREN */
+        /* ========================================== */
+        #loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0F1A32; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0; visibility: hidden;
+        }
+        #loading-overlay.active { opacity: 1; visibility: visible; }
+        
+        .loader {
+            width: 60px; height: 60px;
+            border: 5px solid rgba(255, 107, 44, 0.2);
+            border-top: 5px solid #ff6b2c;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 107, 44, 0.5);
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .loading-text {
+            color: #fff; font-family: 'Inter', sans-serif; font-weight: 800;
+            margin-top: 20px; letter-spacing: 2px; animation: pulseText 1s infinite;
+        }
+        @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* ========================================== */
+        /* CSS MEWAH UNTUK HALAMAN ADMIN DJANGO */
+        /* ========================================== */
+        body { background-color: #f3f4f6 !important; }
+        #header { background-color: #1A2A4F !important; color: #ffffff !important; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        #header a:link, #header a:visited { color: #ffffff !important; }
+        #branding h1 { color: #ffffff !important; font-weight: 800; }
+        #branding h1 span { color: #ff6b2c !important; }
+        .button, input[type=submit], input[type=button], .submit-row input, a.button {
+            background: #ff6b2c !important; color: white !important; border-radius: 8px !important;
+            font-weight: bold !important; padding: 10px 15px !important; transition: all 0.3s ease !important; border: none !important;
+        }
+        .button:hover, input[type=submit]:hover, a.button:hover {
+            background: #e65a1f !important; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255,107,44,0.4);
+        }
+        .module h2, .module caption, .inline-group h2 { background: #1A2A4F !important; color: white !important; border-radius: 8px; }
+        .module a:link, .module a:visited { color: #1A2A4F !important; font-weight: 600; }
+        .module a:hover { color: #ff6b2c !important; }
+    </style>
+</head>
+
+<body>
+    <!-- HTML LOADING SPINNER -->
+    <div id="loading-overlay">
+        <div style="text-align: center;">
+            <div class="loader" style="margin: 0 auto;"></div>
+            <div class="loading-text">MEMUAT...</div>
+        </div>
+    </div>
+
+    <!-- Navbar Modern -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'rentals:index' %}" style="text-decoration: none;">
+                    <span class="logo-fun">FUN</span> <span class="logo-game">GAME</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{% url 'rentals:index' %}"><i class="fas fa-home"></i> Beranda</a></li>
+                
+                <!-- TEKS MENU DIUBAH JADI KATALOG -->
+                <li><a href="{% url 'rentals:daftar_ps' %}"><i class="fas fa-gamepad"></i> Katalog</a></li>
+                
+                <li><a href="{% url 'rentals:daftar_games' %}"><i class="fas fa-dice-d6"></i> Games</a></li>
+                <li><a href="{% url 'rentals:halaman_kontak' %}"><i class="fas fa-phone"></i> Kontak</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- TOMBOL KEMBALI -->
+        {% if request.path != '/' %}
+        <a href="javascript:history.back()" style="position: fixed !important; top: 90px !important; left: 20px !important; z-index: 9999 !important; display: flex !important; align-items: center !important; gap: 8px !important; background-color: #1A2A4F !important; color: #fff !important; padding: 10px 20px !important; border-radius: 50px !important; text-decoration: none !important; font-weight: 700 !important; font-size: 0.95rem !important; box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important; transition: all 0.3s ease !important;">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+        {% endif %}
+
+        {% if messages %}
+            <div class="messages" style="max-width: 1200px; margin: 10px auto; padding: 0 15px;">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" style="background: #10B981; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(16,185,129,0.3);">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><span class="logo-fun">FUN</span> <span class="logo-game">GAME</span></h3>
+                    <p>Tempat PlayStation terbaik di Purabaya | Pengalaman gaming yang seru dan menyenangkan!</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="#">Rental PS</a></li>
+                        <li><a href="#">Sewa Game</a></li>
+                        <li><a href="#">Party Room</a></li>
+                        <li><a href="#">Tournament</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 085810102270</li>
+                        <li><i class="fab fa-whatsapp"></i> 085218727992</li>
+                        <li><i class="fas fa-envelope"></i> info@fungame.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> JL. Raya Purabaya - Miramontana </li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Jam Operasional</h4>
+                    <ul>
+                        <li>Senin - Jumat: 10:00 - 22:00</li>
+                        <li>Sabtu - Minggu: 09:00 - 23:00</li>
+                        <li>Hari Libur: 24 Jam</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FUN GAME - Rental PlayStation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- SCRIPT LOADING SPINNER -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const overlay = document.getElementById('loading-overlay');
+            const links = document.querySelectorAll('a[href]');
+            
+            overlay.classList.remove('active');
+
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    const target = this.getAttribute('target');
+                    
+                    if (href && !href.startsWith('#') && !href.startsWith('javascript') && target !== '_blank') {
+                        if (href !== window.location.pathname && href !== window.location.href) {
+                            overlay.classList.add('active');
+                            
+                            setTimeout(() => {
+                                overlay.classList.remove('active');
+                            }, 500); 
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

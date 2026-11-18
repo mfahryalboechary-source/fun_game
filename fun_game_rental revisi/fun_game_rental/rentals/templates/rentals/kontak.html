@@ -1,0 +1,46 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+
+{% block title %}Kontak - FUN GAME{% endblock %}
+
+{% block content %}
+<section style="padding: 120px 0 60px; background-color: #f3f4f6; min-height: 100vh;">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
+        
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 800; color: #1A2A4F;">Hubungi <span style="color: #ff6b2c;">Kami</span></h2>
+            <p style="color: #666; font-size: 1.1rem;">Ada pertanyaan? Langsung chat aja!</p>
+        </div>
+
+        <!-- Grid 2 Kolom -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            
+            <!-- Card WhatsApp -->
+            <a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20tanya-tanya%20soal%20rental%20PS." target="_blank" style="text-decoration: none; display: block; background: #fff; border-radius: 18px; padding: 2rem; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.1); border: 2px solid transparent; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='#25d366'; this.style.boxShadow='0 15px 30px rgba(37,211,102,0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='transparent'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';">
+                <i class="fab fa-whatsapp" style="font-size: 4rem; color: #25d366; margin-bottom: 1rem;"></i>
+                <h3 style="color: #1A2A4F; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">WhatsApp</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">0852-1872-7992</p>
+                <span style="display: inline-block; background: #25d366; color: white; padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;">Chat Sekarang</span>
+            </a>
+
+            <!-- Card Instagram -->
+            <a href="https://instagram.com/fungame_insomnia" target="_blank" style="text-decoration: none; display: block; background: #fff; border-radius: 18px; padding: 2rem; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.1); border: 2px solid transparent; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='#E1306C'; this.style.boxShadow='0 15px 30px rgba(225,48,108,0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='transparent'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';">
+                <i class="fab fa-instagram" style="font-size: 4rem; color: #E1306C; margin-bottom: 1rem;"></i>
+                <h3 style="color: #1A2A4F; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Instagram</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">@fungame_insomnia</p>
+                <span style="display: inline-block; background: #E1306C; color: white; padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;">Follow Kami</span>
+            </a>
+
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{% url 'rentals:index' %}" style="display: inline-flex; align-items: center; gap: 8px; background: #1A2A4F; color: #fff; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease;" onmouseover="this.style.background='#ff6b2c';" onmouseout="this.style.background='#1A2A4F';">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

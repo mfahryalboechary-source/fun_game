@@ -1,0 +1,117 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+
+{% block title %}Beranda - FUN GAME Rental PlayStation{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-wrapper">
+        <div class="hero-content">
+            <h1 class="hero-title"><span class="hero-fun">FUN</span> <span class="hero-game">GAME</span></h1>
+            <h2 id="typing"></h2>
+            <p class="hero-subtitle">Rental PlayStation | Seru, Cepat, dan Terpercaya</p>
+            <div class="hero-buttons">
+                <!-- Sewa masuk ke Daftar PS -->
+                <a href="{% url 'rentals:daftar_ps' %}" class="btn btn-outline">Sewa</a>
+                
+                <!-- Rental (sementara ke daftar_ps) -->
+                <a href="{% url 'rentals:daftar_ps' %}" class="btn btn-outline">Rental</a>
+                
+                <!-- Sparepart masuk ke Halaman Sparepart -->
+                <a href="{% url 'rentals:beranda_sparepart' %}" class="btn btn-outline">Sparepart</a>
+                
+                <!-- Lihat Games -->
+                <a href="{% url 'rentals:daftar_ps' %}" class="btn btn-outline">Lihat Games</a>
+            </div>
+        </div>
+        <div class="hero-image"><div class="ps-controller"><i class="fas fa-gamepad"></i></div></div>
+    </div>
+</section>
+
+<section class="koleksi-wrap">
+  <div class="container">
+    <div class="section-header koleksi-heading">
+      <h2>Koleksi <span class="highlight">PlayStation</span> &amp; TV</h2>
+      <p>Pilih perangkat favorit untuk pengalaman bermain yang lebih seru</p>
+    </div>
+
+    <section class="koleksi-group" aria-labelledby="ps3-title">
+      <div class="koleksi-subheading"><h3 id="ps3-title">PlayStation 3</h3></div>
+      <div class="katalog-grid">
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}?tipe=PS3">
+          <div class="katalog-image"><img src="{% static 'images/ps3-fat.png' %}" alt="PlayStation 3 Fat"></div>
+          <div class="katalog-content"><h4>PS3 Fat</h4><p>Model klasik dengan desain legendaris</p><span class="katalog-link">Lihat pilihan</span></div>
+        </a>
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}?tipe=PS3">
+          <div class="katalog-image"><img src="{% static 'images/ps3-slim.png' %}" alt="PlayStation 3 Slim"></div>
+          <div class="katalog-content"><h4>PS3 Slim</h4><p>Desain ramping dan praktis</p><span class="katalog-link">Lihat pilihan</span></div>
+        </a>
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}?tipe=PS3">
+          <div class="katalog-image"><img src="{% static 'images/ps3-super-slim.png' %}" alt="PlayStation 3 Super Slim"></div>
+          <div class="katalog-content"><h4>PS3 Super Slim</h4><p>Ringkas dan ringan</p><span class="katalog-link">Lihat pilihan</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="koleksi-group" aria-labelledby="ps4-title">
+      <div class="koleksi-subheading"><h3 id="ps4-title">PlayStation 4</h3></div>
+      <div class="katalog-grid">
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}?tipe=PS4"><div class="katalog-image katalog-placeholder"><i class="fab fa-playstation"></i></div><div class="katalog-content"><h4>PS4 Fat</h4><p>Generasi pertama PlayStation 4</p><span class="katalog-link">Lihat pilihan</span></div></a>
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}?tipe=PS4"><div class="katalog-image katalog-placeholder"><i class="fab fa-playstation"></i></div><div class="katalog-content"><h4>PS4 Slim</h4><p>Desain lebih tipis dan ringkas</p><span class="katalog-link">Lihat pilihan</span></div></a>
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}?tipe=PS4"><div class="katalog-image katalog-placeholder"><i class="fab fa-playstation"></i></div><div class="katalog-content"><h4>PS4 Pro</h4><p>Performa grafis lebih tinggi</p><span class="katalog-link">Lihat pilihan</span></div></a>
+      </div>
+    </section>
+
+    <section class="koleksi-group" aria-labelledby="tv-title">
+      <div class="koleksi-subheading"><h3 id="tv-title">Koleksi TV</h3></div>
+      <div class="katalog-grid">
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}"><div class="katalog-image katalog-placeholder"><i class="fas fa-tv"></i></div><div class="katalog-content"><h4>TV LG</h4><p>Televisi LG</p><span class="katalog-link">Lihat pilihan</span></div></a>
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}"><div class="katalog-image katalog-placeholder"><i class="fas fa-tv"></i></div><div class="katalog-content"><h4>TV Sharp</h4><p>Televisi Sharp</p><span class="katalog-link">Lihat pilihan</span></div></a>
+        <a class="katalog-card" href="{% url 'rentals:daftar_ps' %}"><div class="katalog-image katalog-placeholder"><i class="fas fa-tv"></i></div><div class="katalog-content"><h4>TV Kolka</h4><p>Televisi Kolka</p><span class="katalog-link">Lihat pilihan</span></div></a>
+      </div>
+    </section>
+  </div>
+</section>
+
+<style>
+/* Tata letak katalog saja: latar halaman dan tema utama tetap mengikuti style.css yang sudah ada. */
+.koleksi-wrap{padding:3.5rem 0 5rem;background:transparent;}
+.koleksi-heading{margin-bottom:2.5rem;}
+.koleksi-group{margin:0 auto 3.5rem;}
+.koleksi-subheading{text-align:center;margin:0 0 1.35rem;}
+.koleksi-subheading h3{display:inline-block;color:var(--blue-dark);font-size:1.65rem;font-weight:800;margin:0;padding:.55rem 1.5rem;border-bottom:3px solid var(--orange);}
+.katalog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;align-items:stretch;}
+.katalog-card{display:block;min-width:0;text-decoration:none;color:inherit;background:var(--white,#fff);border:1px solid rgba(26,42,79,.12);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.10);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;}
+.katalog-card:hover{transform:translateY(-8px) scale(1.015);box-shadow:0 16px 32px rgba(26,42,79,.2);border-color:var(--orange);}
+.katalog-image{height:220px;padding:1rem;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#1A2A4F,#0F1A32);overflow:hidden;}
+.katalog-image img{display:block;width:100%;height:100%;object-fit:contain;animation:katalogFloat 3.2s ease-in-out infinite;transition:transform .35s ease,filter .35s ease;}
+.katalog-card:hover .katalog-image img{transform:scale(1.1);filter:drop-shadow(0 8px 12px rgba(255,107,44,.35));}
+.katalog-placeholder i{font-size:6rem;color:#fff;text-shadow:0 0 18px rgba(255,107,44,.7);animation:katalogFloat 3.2s ease-in-out infinite;transition:transform .35s ease,color .35s ease;}
+.katalog-card:hover .katalog-placeholder i{transform:scale(1.13);color:var(--orange);}
+.katalog-content{text-align:center;padding:1.2rem 1rem 1.35rem;}
+.katalog-content h4{font-size:1.2rem;margin:0 0 .45rem;color:var(--blue-dark);font-weight:800;}
+.katalog-content p{margin:0 0 .8rem;color:var(--gray,#666);font-size:.92rem;}
+.katalog-link{display:inline-block;color:var(--orange);font-weight:700;font-size:.9rem;}
+@keyframes katalogFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:768px){.koleksi-wrap{padding:2.5rem 0 3.5rem}.katalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.katalog-image{height:175px}.koleksi-subheading h3{font-size:1.35rem}}
+@media(max-width:480px){.katalog-grid{grid-template-columns:1fr}.katalog-card{max-width:380px;width:100%;margin:0 auto}.katalog-image{height:210px}}
+@media(prefers-reduced-motion:reduce){.katalog-image img,.katalog-placeholder i{animation:none}.katalog-card,.katalog-image img,.katalog-placeholder i{transition:none}}
+
+/* TAMBAHAN CSS UNTUK TOMBOL HERO */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.hero-buttons .btn-outline:hover {
+    background-color: var(--orange, #ff6b2c) !important;
+    color: #ffffff !important;
+    border-color: var(--orange, #ff6b2c) !important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+</style>
+{% endblock %}

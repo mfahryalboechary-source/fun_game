@@ -1,0 +1,229 @@
+{% extends 'rentals/base.html' %}
+{% load static %}
+
+{% block title %}Beranda - FUN GAME Rental PlayStation{% endblock %}
+
+{% block content %}
+<style>
+    .hero { background: linear-gradient(-45deg, #0F1A32, #1A2A4F, #0a1224, #1A2A4F) !important; background-size: 400% 400% !important; animation: gradientBG 12s ease infinite !important; overflow: hidden; }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .hero-title { animation: titleGlow 2s infinite alternate; }
+    @keyframes titleGlow { 0% { text-shadow: 0 0 10px rgba(255, 107, 44, 0.5); transform: scale(1); } 100% { text-shadow: 0 0 30px rgba(255, 107, 44, 1), 0 0 50px rgba(255, 107, 44, 0.8); transform: scale(1.02); } }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+    .hero-buttons .btn-outline { transition: all 0.3s ease; animation: floatBtn 3s ease-in-out infinite; background-color: #ffffff !important; color: #ff6b2c !important; border: 2px solid #ffffff !important; font-weight: 700; }
+    .hero-buttons .btn-outline:nth-child(1) { animation-delay: 0s; }
+    .hero-buttons .btn-outline:nth-child(2) { animation-delay: 0.4s; }
+    .hero-buttons .btn-outline:nth-child(3) { animation-delay: 0.8s; }
+    .hero-buttons .btn-outline:nth-child(4) { animation-delay: 1.2s; }
+    @keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .hero-buttons .btn-outline:hover { animation: none !important; background-color: #ff6b2c !important; color: #ffffff !important; border-color: #ff6b2c !important; transform: translateY(-8px) scale(1.1) !important; box-shadow: 0 0 20px rgba(255, 107, 44, 0.8) !important; }
+    .katalog-card { transition: all 0.3s ease !important; }
+    .katalog-card:hover { transform: translateY(-8px) !important; box-shadow: 0 15px 30px rgba(26,42,79,0.2) !important; border-color: #ff6b2c !important; }
+    .katalog-image img { filter: drop-shadow(0px 15px 15px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease, filter 0.3s ease; }
+    .katalog-card:hover .katalog-image img { filter: drop-shadow(0 0 25px rgba(255, 107, 44, 0.9)) !important; transform: scale(1.1) !important; }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] summary i { transform: rotate(180deg); }
+    details summary i { transition: transform 0.3s ease; }
+    .promo-banner { background-color: #ff6b2c; color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; font-weight: bold; font-size: 1rem; display: flex; align-items: center; position: relative; z-index: 10; }
+    .promo-track { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
+    .promo-track span { display: inline-block; margin-right: 50px; }
+    .promo-track i { margin-right: 10px; color: #ffd700; }
+    @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+    .wa-float { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; animation: pulseWa 2s infinite; text-decoration: none; }
+    .wa-float:hover { background-color: #128C7E !important; color: #fff !important; transform: scale(1.1); animation: none; }
+    @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+</style>
+
+<div class="promo-banner">
+    <div class="promo-track">
+        <span><i class="fas fa-fire"></i> PROMO SPESIAL: SEWA 3 JAM GRATIS 1 JAM! KHUSUS HARI SENIN - KAMIS.</span>
+        <span><i class="fas fa-bolt"></i> UNIT SELALU BERSIH & TERAWAT. GARANSI ANTI RUSAK!</span>
+        <span><i class="fas fa-gamepad"></i> BANYAK PILIHAN GAME TERBARU. LANGSUNG CHAT WA KAMI!</span>
+        <span><i class="fas fa-fire"></i> PROMO SPESIAL: SEWA 3 JAM GRATIS 1 JAM! KHUSUS HARI SENIN - KAMIS.</span>
+        <span><i class="fas fa-bolt"></i> UNIT SELALU BERSIH & TERAWAT. GARANSI ANTI RUSAK!</span>
+        <span><i class="fas fa-gamepad"></i> BANYAK PILIHAN GAME TERBARU. LANGSUNG CHAT WA KAMI!</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container hero-wrapper">
+        <div class="hero-content">
+            <h1 class="hero-title"><span class="hero-fun">FUN</span> <span class="hero-game">GAME</span></h1>
+            <p class="hero-subtitle">Tempat PlayStation terlengkap dan Game terupdate di Purabaya</p>
+            <div class="hero-buttons">
+                <a href="{% url 'rentals:daftar_ps' %}" class="btn btn-outline">Sewa</a>
+                <a href="{% url 'rentals:halaman_rental' %}" class="btn btn-outline">Rental</a>
+                <a href="{% url 'rentals:beranda_sparepart' %}" class="btn btn-outline">Sparepart</a>
+                <a href="{% url 'rentals:daftar_games' %}" class="btn btn-outline">Lihat Games</a>
+            </div>
+        </div>
+        <div class="hero-image"><div class="ps-controller"><i class="fas fa-gamepad"></i></div></div>
+    </div>
+</section>
+
+<section class="koleksi-wrap" id="koleksi" style="padding: 4rem 0; background: #f8f9fa;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; color: #1A2A4F; margin-bottom: 0.5rem;">Koleksi <span style="color: #ff6b2c;">PlayStation</span> &amp; TV</h2>
+      <p style="color: #666; font-size: 1.1rem;">Pilih perangkat favorit untuk pengalaman bermain yang lebih seru</p>
+    </div>
+
+    <div style="margin-bottom: 4rem;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h3 style="display: inline-block; color: #1A2A4F; font-size: 1.65rem; font-weight: 800; margin: 0; padding: .55rem 1.5rem; border-bottom: 3px solid #ff6b2c;">PlayStation 3</h3>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/ps3-fat.png' %}" style="width: 100%; height: 100%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">PS3 Fat</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Model klasik legendaris dengan desain tebal. Cocok untuk koleksi & gaming retro.</div>
+              </details>
+          </div>
+        </div>
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/ps3-slim.png' %}" style="width: 100%; height: 100%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">PS3 Slim</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Desain ramping dan hemat daya. Pilihan pas untuk main santai.</div>
+              </details>
+          </div>
+        </div>
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/ps3-super-slim.png' %}" style="width: 115%; height: 115%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">PS3 Super Slim</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Versi paling ringkas dan ringan. Praktis dibawa dan mudah disimpan.</div>
+              </details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 4rem;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h3 style="display: inline-block; color: #1A2A4F; font-size: 1.65rem; font-weight: 800; margin: 0; padding: .55rem 1.5rem; border-bottom: 3px solid #ff6b2c;">PlayStation 4</h3>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/ps4-fat.png' %}" style="width: 100%; height: 100%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">PS4 Fat</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Generasi pertama PS4 dengan performa tangguh. Cocok untuk game-game AAA.</div>
+              </details>
+          </div>
+        </div>
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/ps4-slim.png' %}" style="width: 100%; height: 100%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">PS4 Slim</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Lebih tipis, lebih senyap, dan irit listrik. Nyaman untuk main marathon.</div>
+              </details>
+          </div>
+        </div>
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/ps4-pro.png' %}" style="width: 100%; height: 100%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">PS4 Pro</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Grafis 4K yang memukau. Untuk pengalaman visual terbaik.</div>
+              </details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h3 style="display: inline-block; color: #1A2A4F; font-size: 1.65rem; font-weight: 800; margin: 0; padding: .55rem 1.5rem; border-bottom: 3px solid #ff6b2c;">Koleksi TV</h3>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/tv-lg.png' %}" style="width: 85%; height: 85%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">TV LG</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Layar jernih dengan warna vivid. Ideal untuk nonton dan main PS.</div>
+              </details>
+          </div>
+        </div>
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/tv-sharp.png' %}" style="width: 55%; height: 55%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">TV Sharp</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Kualitas gambar tajam dan awet. Pilihan hemat untuk harian.</div>
+              </details>
+          </div>
+        </div>
+        <div class="katalog-card" style="display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.1); border: 2px solid transparent;">
+          <div class="katalog-image" style="height: 220px; padding: 1rem; display: flex; align-items: center; justify-content: center; background-color: #d1d5db;"><img src="{% static 'images/tv-cocca.png' %}" style="width: 100%; height: 100%; object-fit: contain; transition: 0.3s;"></div>
+          <div class="katalog-content" style="text-align: center; padding: 1.2rem; background-color: #1A2A4F;">
+              <h4 style="color: #fff; font-weight: 800;">TV Cocca</h4>
+              <details style="margin-top: 10px; cursor: pointer;">
+                  <summary style="color: #fff; font-weight: 700; font-size: 0.9rem; outline: none; list-style: none;">Lihat Deskripsi <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></summary>
+                  <div style="background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; text-align: left; font-size: 0.85rem; color: #555; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">Smart TV dengan fitur lengkap. Bisa streaming & gaming.</div>
+              </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION TESTIMONI (HANYA TAMPILAN) -->
+<section class="saran-wrap" style="padding: 4rem 0; background: #fff;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
+    
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; color: #1A2A4F;">Apa Kata <span style="color: #ff6b2c;">Mereka</span></h2>
+      <p style="color: #666; font-size: 1.1rem;">Ulasan jujur dari pelanggan FUN GAME.</p>
+    </div>
+
+    <!-- TOMBOL TULIS ULASAN -->
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <a href="{% url 'rentals:tulis_ulasan' %}" style="display: inline-flex; align-items: center; gap: 8px; background: #ff6b2c; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 15px rgba(255,107,44,0.4); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(255,107,44,0.6)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(255,107,44,0.4)';">
+            <i class="fas fa-pen"></i> Tulis Ulasan
+        </a>
+    </div>
+
+    <!-- GRID TESTIMONI -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        {% for t in testimoni_list %}
+        <div style="background: #1A2A4F; padding: 1.5rem; border-radius: 15px; border-left: 5px solid #ff6b2c; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="color: #fff; font-size: 1.1rem;">{{ t.nama_pelanggan }}</strong>
+                <span style="background: #ff6b2c; color: white; padding: 2px 8px; border-radius: 5px; font-size: 0.7rem;">{{ t.unit_digunakan }}</span>
+            </div>
+            <div style="color: #ffd700; font-size: 0.9rem; margin-bottom: 0.8rem;">
+                ⭐⭐⭐⭐⭐ (Pelayanan: {{ t.pelayanan }})
+            </div>
+            <p style="color: #ccc; font-size: 0.95rem; margin: 0; line-height: 1.6; font-style: italic;">"{{ t.saran }}"</p>
+        </div>
+        {% empty %}
+        <div style="text-align: center; padding: 3rem; background: #f8f9fa; border-radius: 15px; grid-column: 1 / -1;">
+            <i class="fas fa-comment-slash" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <p style="color: #666;">Belum ada ulasan. Jadilah yang pertama!</p>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</section>
+
+<a href="https://wa.me/6285218727992?text=Halo%20FUN%20GAME,%20saya%20mau%20tanya-tanya%20soal%20rental%20PS." target="_blank" class="wa-float">
+    <i class="fab fa-whatsapp"></i>
+</a>
+{% endblock %}
